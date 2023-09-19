@@ -3,9 +3,7 @@ name: autocommit-robot
 on:
   schedule:
     - cron: "0 0 * * *"
-  push: # 添加这个触发条件，指定当推送事件发生时执行工作流
-    branches:
-      - main # 可以指定特定分支或通配符，如 '*' 表示所有分支
+  
 
 jobs:
   bots:
