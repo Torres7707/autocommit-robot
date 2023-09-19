@@ -7,9 +7,9 @@ const id = (~~(Math.random() * 100000)).toString(); // 获取小于10w的数字
 const url = `https://robohash.org/${id}`;
 const dirPath = path.resolve(__dirname, "pictures");
 
-if (!fs.existsSync(dirPath)) {
-  fs.mkdirSync(dirPath);
-}
+// if (!fs.existsSync(dirPath)) {
+//   fs.mkdirSync(dirPath);
+// }
 
 // 获取当前日期并格式化为需要的文件名格式
 const currentDate = new Date().toLocaleDateString("en", {
