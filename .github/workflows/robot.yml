@@ -7,41 +7,38 @@ on:
 jobs:
   bots:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
     steps:
       - name: "Checkout code"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          token: ${{ github.token }}
 
       - name: "Set node"
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
 
       - name: "Install"
         run: npm install
 
+      - name: "Remove old pictures"
+        run: rm -rf pictures/*
+
       - name: "Run bash"
         run: node index.js
 
-      - name: "Remove files"
-        run: |
-          git config --local user.email "wangdong7707@gmail.com"
-          git config --local user.name "torres7707"
-          git pull origin main
-          rm -f pictures/*.png
-          git add -A
-
       - name: "Commit"
-        uses: EndBug/add-and-commit@v4
+        uses: EndBug/add-and-commit@v9
         with:
           author_name: torres7707
           author_email: wangdong7707@gmail.com
-          message: "feat: update robot"
-          add: "pictures/*.png"
-          remove: "pictures/*.png"
-          pull: "--rebase"
-          force: false
-
+          message: "feat: save robot"
+          add: "pictures/*"
+          push: true
+          token: ${{ github.token }}
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
